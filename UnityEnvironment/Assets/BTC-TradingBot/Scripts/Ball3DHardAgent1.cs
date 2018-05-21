@@ -62,7 +62,13 @@ public class Ball3DHardAgent1 : Agent
                 if (action_valueBitcoin > 0)
                 {
                     if (nomralizedChartValue > 0.5)
-                        AddReward(0.1f * Mathf.InverseLerp(0.5f, 1f, nomralizedChartValue));
+                    {
+                        float a, b;
+                        a = Mathf.InverseLerp(0.5f, 1f, nomralizedChartValue);
+                        b = Mathf.InverseLerp(0f, 1f, normalizedBitcoins);
+
+                        AddReward(0.1f * a * b);
+                    }
 
                     chart.BuyCrypto(action_valueBitcoin, chart.ChartValue, this);
                     MyTrade trade = new MyTrade();
@@ -76,10 +82,10 @@ public class Ball3DHardAgent1 : Agent
             if (action_trade > 0)
             {
                 if (nomralizedChartValue > 0.8f)
-                    AddReward(0.1f * Mathf.InverseLerp(0.2f, 0f, normalizedBitcoins));
+                    AddReward(0.15f * Mathf.InverseLerp(0.5f, 0f, normalizedBitcoins));
 
                 if (nomralizedChartValue < 0.2f)
-                    AddReward(0.1f * Mathf.InverseLerp(0.2f, 0f, normalizedCryptos));
+                    AddReward(0.15f * Mathf.InverseLerp(0.5f, 0f, normalizedCryptos));
             }
 
             // Buy Bitcoins
@@ -87,7 +93,13 @@ public class Ball3DHardAgent1 : Agent
                 if (action_valueCrypto > 0 && avarageCost > 0)
                 {
                     if (nomralizedChartValue < 0.5)
-                        AddReward(0.1f * Mathf.InverseLerp(0.5f, 0f, nomralizedChartValue));
+                    {
+                        float a, b;
+                        a = Mathf.InverseLerp(0.5f, 1f, nomralizedChartValue);
+                        b = Mathf.InverseLerp(0f, 1f, normalizedCryptos);
+
+                        AddReward(0.1f * a * b);
+                    }
 
                     chart.SellCrypto(action_valueCrypto, chart.ChartValue, this);
                     UpdateTrades(action_valueCrypto);
