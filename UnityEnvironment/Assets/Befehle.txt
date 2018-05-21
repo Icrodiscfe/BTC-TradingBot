@@ -1,0 +1,3 @@
+tensorboard --logdir=summaries
+
+python python/learn.py ./Build/Build --run-id=TestName --train
